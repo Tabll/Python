@@ -44,3 +44,4 @@ with tf.Session() as sess:
     plt.plot(train_X, sess.run(W) * train_X + sess.run(b), label='Fitted line')
     plt.legend()
     plt.show()
+exit()

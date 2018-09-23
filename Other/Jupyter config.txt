@@ -1,0 +1,34 @@
+c.Application.log_datefmt = '%Y-%m-%d %H:%M:%S'  # 日志时间格式
+c.Application.log_format = '[%(name)s]%(highlevel)s %(message)s'  # 日志格式
+c.Application.log_level = 50  # 日志级别：   0|无   10|调试   20|信息   30|警告   40|错误   50|关键
+
+c.NotebookApp.allow_origin = '*'  # 允许任何访问来源
+
+c.NotebookApp.allow_root = True  # 允许使用root权限运行
+
+c.NotebookApp.base_url = '/'  # 基本URL
+c.NotebookApp.certfile = '/home/ubuntu/notebooks/my.crt'  # SSL密钥地址
+c.NotebookApp.config_manager_class = 'notebook.services.config.manager.ConfigManager'  # 配置管理器类
+c.NotebookApp.contents_manager_class = 'notebook.services.contents.largefilemanager.LargeFileManager'  # 笔记本管理器类
+
+c.NotebookApp.default_url = '/tree'  # 重定向默认URL
+c.NotebookApp.enable_mathjax = True  # 是否使用MathJax渲染，MathJax是用来渲染LaTeX的一个javascript库
+c.NotebookApp.ip = '172.30.66.208'  # 笔记本的监听IP地址，此处应该为内网IP地址
+
+c.NotebookApp.keyfile = '/home/ubuntu/notebooks/my.key'  # SSL私钥地址
+
+c.NotebookApp.notebook_dir = '/home/ubuntu/notebooks/'  # 笔记本主文件夹地址
+c.NotebookApp.open_browser = False  # 笔记本启动后是否自动打开浏览器
+c.NotebookApp.password = 'sha1:e6g106bc823f:2130c6c05df57ed5b936dc9643fbaf40b0c70902'  # 用于验证身份的哈希密码
+c.NotebookApp.password_required = True  # 使用用户密码
+c.NotebookApp.port = 443  # 笔记本监听端口，这里使用443默认端口
+c.NotebookApp.port_retries = 0  # 如果端口被占用尝试其它端口的数量
+
+c.NotebookApp.webbrowser_open_new = 2  # 每次使用新新选项卡打开链接
+
+c.KernelManager.autorestart = True  # 内核自动重启
+c.KernelManager.shutdown_wait_time = 10.0  # 关闭等待时间
+
+c.ContentsManager.untitled_directory = 'new folder'  # 默认新建文件夹名称
+c.ContentsManager.untitled_file = 'new'  # 默认新建文件名称
+c.ContentsManager.untitled_notebook = 'new'  # 默认新建笔记本名称
