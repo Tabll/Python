@@ -3,6 +3,8 @@ import os
 import pandas
 
 
+# I read this blog: https://blog.csdn.net/quiet_girl/article/details/80904471
+# and than find this way to read the pgm file
 def pgm_reader(name):
     with open(name) as filename:
         lines = filename.readlines()
@@ -17,6 +19,7 @@ def pgm_reader(name):
     return np.array(data[3:]), (data[1], data[0]), data[2]
 
 
+# This def used to make all the 255 to 1, so after this done there are only 0 and 1
 def convert_pgm_data(pgm_array):
     size = pgm_array[1]
     data = pgm_array[0]
@@ -26,6 +29,8 @@ def convert_pgm_data(pgm_array):
     column = 0
     for number in data:
         if number == 255:
+            number = 0
+        else:
             number = 1
         new_data[row][column] = number
         column += 1
@@ -36,6 +41,7 @@ def convert_pgm_data(pgm_array):
     return new_data
 
 
+# This def used to convert all the file from pgm to csv
 def convert_all_file(from_lo, to_lo):
     # pgm_data = pgm_reader(from_lo)
     # file_list = []
@@ -53,11 +59,13 @@ def convert_all_file(from_lo, to_lo):
     print("all finished!")
 
 
+# This def split the symbol label and number
 def get_symbol_label_and_number(file_name: str):
     strings = file_name.split("-", 1)
     return "_" + get_convert_dictionary()[strings[0]] + "_" + strings[1].split(".", 1)[0]
 
 
+# This def is the convert dictionary
 def get_convert_dictionary():
     return {'1': '11',
             '2': '12',
@@ -83,4 +91,5 @@ def get_convert_dictionary():
             }
 
 
+# convert all my pgm files~
 convert_all_file("D:\\Projects\\Pythons\\Data\\CSC-3060\\PGM file", "D:\\Projects\\Pythons\\Data\\CSC-3060\\CSV file")
