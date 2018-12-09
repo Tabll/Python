@@ -11,16 +11,11 @@ headers = {
 data = {
     'cate': 'realtimehot'
 }
-# conn = pymysql.connect(host='106.14.33.228', port=3306,
-# user='data_saver', passwd='Wtsdata123', db='data', charset='utf8')
-# db = pymysql.connect(host="tdsql-7vfehdkz.sql.tencentcdb.com", port=18, user="wtsyc", passwd="WeiTS905153840@@",
-#                      db="data", charset='utf8')
 db = pymysql.connect(host="10.66.85.250", port=3306, user="data_saver", passwd="Wtsdata123",
                      db="data", charset='utf8')
 
 
 def get_weibo():
-    sql_clean('w')
     try:
         r = requests.get('https://s.weibo.com/top/summary?', params=data, headers=headers)
         # print(r.url)
@@ -35,8 +30,8 @@ def get_weibo():
     counter = 1
     sc.remove(sc[0])
     if len(sc) == 50:
+        sql_clean('w')
         for main_data in sc:
-            # print(main_data)
             c = str(main_data).split(">")
             content = c[2].split("<")[0]
             heat = int(1.07 ** (50 - counter))
@@ -47,11 +42,11 @@ def get_weibo():
 
 
 def get_zhihu():
-    sql_clean('z')
     res = requests.get('https://www.zhihu.com/api/v3/feed/topstory/hot-list-web?limit=50&desktop=true', headers=headers)
     m = json.loads(res.text)
     counter = 1
     if len(m['data']) == 50:
+        sql_clean('z')
         for c in m['data']:
             content = c['target']['title_area']['text']
             heat = int(1.07 ** (50 - counter))
@@ -69,8 +64,15 @@ def sql_save(this_id, rank, content, heat, source):
           + content + "'," \
           + heat + ",'" \
           + source + "')"
+    sql_hour = "INSERT INTO now_hour (`id`,`rank`, `content`, `heat`, `source`) VALUES ('" \
+          + this_id + "'," \
+          + rank + ",'" \
+          + content + "'," \
+          + heat + ",'" \
+          + source + "')"
     try:
         cursor.execute(sql)
+        cursor.execute(sql_hour)
     except():
         db.rollback()
 
